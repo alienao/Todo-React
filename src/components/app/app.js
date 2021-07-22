@@ -26,7 +26,7 @@ export default class App extends Component {
     search: '',
   };
 
-  onItemAdded = (label) => {
+  handleItemAdded = (label) => {
     this.setState((state) => {
       const item = this.createItem(label);
       return { items: [...state.items, item] };
@@ -42,32 +42,32 @@ export default class App extends Component {
     return [...arr.slice(0, idx), item, ...arr.slice(idx + 1)];
   };
 
-  onToggleDone = (id) => {
+  handleToggleComplete = (id) => {
     this.setState((state) => {
       const items = this.toggleProperty(state.items, id, 'completed');
       return { items };
     });
   };
 
-  onToggleImportant = (id) => {
+  handleToggleImportant = (id) => {
     this.setState((state) => {
       const items = this.toggleProperty(state.items, id, 'important');
       return { items };
     });
   };
 
-  onDelete = (id) => {
+  handleDelete = (id) => {
     this.setState((state) => {
       const items = state.items.filter((item) => item.id !== id);
       return { items };
     });
   };
 
-  onFilterChange = (filter) => {
+  handleFilterChange = (filter) => {
     this.setState({ filter });
   };
 
-  onSearchChange = (search) => {
+  handleSearchChange = (search) => {
     this.setState({ search });
   };
 
@@ -114,22 +114,22 @@ export default class App extends Component {
         <AppHeader toDo={toDoCount} completed={completedCount} />
 
         <div className="search-panel d-flex">
-          <SearchPanel onSearchChange={this.onSearchChange} />
+          <SearchPanel onSearchChange={this.handleSearchChange} />
 
           <ItemStatusFilter
             filter={filter}
-            onFilterChange={this.onFilterChange}
+            onFilterChange={this.handleFilterChange}
           />
         </div>
 
         <TodoList
           items={visibleItems}
-          onToggleImportant={this.onToggleImportant}
-          onToggleDone={this.onToggleDone}
-          onDelete={this.onDelete}
+          onToggleImportant={this.handleToggleImportant}
+          onToggleDone={this.handleToggleComplete}
+          onDelete={this.handleDelete}
         />
 
-        <ItemAddForm onItemAdded={this.onItemAdded} />
+        <ItemAddForm onItemAdded={this.handleItemAdded} />
       </div>
     );
   }
